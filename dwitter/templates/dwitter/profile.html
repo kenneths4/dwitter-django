@@ -46,6 +46,13 @@
             </button>
         </a>
     </div>
+    <div class="block">
+        <a href="{% url 'dwitter:profile' request.user.profile.id %} ">
+            <button class="button is-success is-light is-outlined is-fullwidth">
+                My Profile
+            </button>
+        </a>
+    </div>
 
     <div class="block">
         <h3 class="title is-4">
