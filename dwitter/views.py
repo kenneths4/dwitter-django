@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from .models import Profile
+from .forms import DweetForm
 
 def dashboard(request):
-    return render(request, "base.html")
+    dweet_form = DweetForm()
+    return render(request, "dwitter/dashboard.html", {"dweet_form": dweet_form})
 
 def profile_list(request):
     profiles = Profile.objects.exclude(user=request.user)
