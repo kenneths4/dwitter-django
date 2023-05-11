@@ -3,6 +3,14 @@ from .models import Profile
 from .forms import DweetForm
 
 def dashboard(request):
+    if request.method == "POST":
+        dweet_form = DweetForm(request.POST)
+        if dweet_form.is_valid():
+            dweet = dweet_form.save(commit=False)
+            dweet.user = request.user
+            dweet.save()
+    
+    #clear form or create empty if GET
     dweet_form = DweetForm()
     return render(request, "dwitter/dashboard.html", {"dweet_form": dweet_form})
 
