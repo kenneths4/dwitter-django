@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Profile
 from .forms import DweetForm
+from django.shortcuts import render, redirect
 
 def dashboard(request):
     if request.method == "POST":
@@ -9,6 +10,7 @@ def dashboard(request):
             dweet = dweet_form.save(commit=False)
             dweet.user = request.user
             dweet.save()
+            return redirect("dwitter:dashboard")
     
     #clear form or create empty if GET
     dweet_form = DweetForm()
