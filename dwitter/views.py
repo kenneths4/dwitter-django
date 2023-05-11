@@ -4,16 +4,15 @@ from .forms import DweetForm
 from django.shortcuts import render, redirect
 
 def dashboard(request):
+    dweet_form = DweetForm(request.POST or None)
     if request.method == "POST":
-        dweet_form = DweetForm(request.POST)
         if dweet_form.is_valid():
             dweet = dweet_form.save(commit=False)
             dweet.user = request.user
             dweet.save()
             return redirect("dwitter:dashboard")
     
-    #clear form or create empty if GET
-    dweet_form = DweetForm()
+    
     return render(request, "dwitter/dashboard.html", {"dweet_form": dweet_form})
 
 def profile_list(request):
