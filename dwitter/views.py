@@ -1,8 +1,19 @@
 from django.shortcuts import render
 from .models import Profile
+from .forms import DweetForm
+from django.shortcuts import render, redirect
 
 def dashboard(request):
-    return render(request, "base.html")
+    dweet_form = DweetForm(request.POST or None)
+    if request.method == "POST":
+        if dweet_form.is_valid():
+            dweet = dweet_form.save(commit=False)
+            dweet.user = request.user
+            dweet.save()
+            return redirect("dwitter:dashboard")
+    
+    
+    return render(request, "dwitter/dashboard.html", {"dweet_form": dweet_form})
 
 def profile_list(request):
     profiles = Profile.objects.exclude(user=request.user)

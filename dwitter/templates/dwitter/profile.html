@@ -11,6 +11,7 @@
     </div>
 
     <form method="post">
+        <!-- csrf token for cross site request forgery prevention on post form -->
         {% csrf_token %}
         <div class="buttons has-addons">
             {% if profile in user.profile.follows.all %}
@@ -22,6 +23,17 @@
             {% endif %}
         </div>
     </form>
+
+    <div class="content">
+        {% for dweet in profile.user.dweets.all %}
+            <div class="box">
+                {{ dweet.body }}
+                <span class="is-small has-text-grey-light">
+                    ({{ dweet.created_at }})
+                </span>
+            </div>
+        {% endfor %}
+    </div>
 
 </div>
 
