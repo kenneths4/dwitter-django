@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Profile
 from .forms import DweetForm
+from .models import Dweet, Profile
 from django.shortcuts import render, redirect
 
 def dashboard(request):
@@ -12,8 +13,13 @@ def dashboard(request):
             dweet.save()
             return redirect("dwitter:dashboard")
     
-    
-    return render(request, "dwitter/dashboard.html", {"dweet_form": dweet_form})
+    #__ is how you use django queryset field lookup
+    # translates to SQL query
+    followed_dweets = Dweet.objects.filter(
+        user__profile__in=request.user.profile.follows.all()
+    ).order_by("-created_at")
+
+    return render(request, "dwitter/dashboard.html", {"dweets": followed_dweets})
 
 def profile_list(request):
     profiles = Profile.objects.exclude(user=request.user)
