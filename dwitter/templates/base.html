@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +7,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Include the Bulma CSS framework for styling -->
+    
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'dwitter/style.css' %}">
+    
+    
+    
     <title>Dwitter</title>
 </head>
 <body>
-    <a href="{% url 'dwitter:dashboard' %} ">
-    <section class="hero is-small is-success mb-4">
-        <div class="hero-body">
-            <h1 class="title is-1">Dwitter</h1>
-            <p class="subtitle is-4">
-                Your tiny social network built with Django
-            </p>
+    <section class="hero is-info mb-4">
+        
+        <div class="hero-body columns is-vcentered">
+            <div class="header-div column is-four-fifths">
+                <h1 class="title is-1">Dwitter</h1>
+                <p class="user-auth-link subtitle is-4">
+                    A social network app built with Django
+                </p>
+            </div>
+            
+
+            
+                {% if request.user.is_authenticated %}
+                <div class="column is-one-fifth">
+                    <a href="{% url 'dwitter:dashboard' %}" class="text-white hover:text-grey-200">Dashboard</a>
+    
+                    <a href="{% url 'dwitter:logout' %}" class="user-auth-link px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700">Log out</a>
+                </div>
+                    
+                {% else %}
+                <div class="column">
+                    <a href="{% url 'dwitter:login'%}" class="text-white hover:text-grey-200">Login</a>
+                    <a href="#" class="user-auth-link px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700">Sign Up</a>
+                {% endif %}
+                </div>
         </div>
+
+        
+
+        
+        
+        
     </section>
     </a>
     <div class="container">

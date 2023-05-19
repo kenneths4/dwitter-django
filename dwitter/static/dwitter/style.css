@@ -1,0 +1,38 @@
+html, body {
+   font-family: 'Montserrat';
+   font-size: 14px;
+   font-weight: 300;
+}
+
+.title-div{
+   
+   padding:50px;
+}
+
+.header-div{
+   
+   color: #4682B4;
+}
+
+
+.hero, .nav {
+ -webkit-box-shadow: none;
+ box-shadow: none;
+}
+.box {
+ margin-top: 5rem;
+}
+.avatar {
+ margin-top: -70px;
+ padding-bottom: 20px;
+}
+
+input {
+ font-weight: 300;
+}
+p {
+ font-weight: 700;
+}
+p.subtitle {
+ padding-top: 1rem;
+}

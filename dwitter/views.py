@@ -1,10 +1,28 @@
 from django.shortcuts import render
-from .models import Profile
-from .forms import DweetForm
-from .models import Dweet, Profile
 from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
+from .models import Profile
+from .forms import DweetForm, LoginForm
+from .models import Dweet, Profile
+from django.http import HttpResponseRedirect
+        
+    
+def login_view(request):
+    login_form = LoginForm(request.POST or None)
+    if request.POST and login_form.is_valid():
+        
+        user = login_form.login(request)
+        if user:
+            login(request, user)
+            return redirect("dwitter:dashboard")
+        
+    return render(request, 'authentication/login.html', {'login_form': login_form })
+
+@login_required
 def dashboard(request):
+    
     dweet_form = DweetForm(request.POST or None)
     if request.method == "POST":
         if dweet_form.is_valid():

@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if request.user.is_authenticated %}
 <div class="column">
     {% for followed in user.profile.follows.all %}
         {% for dweet in dweets %}
@@ -11,7 +12,7 @@
                 {{ dweet.created_at }} by {{ dweet.user.username }}
             </span>
         </div>
-{% endfor %}
+        {% endfor %}
     {% endfor %}
 </div>
 
@@ -49,6 +50,6 @@
         
 </div>
 
-
+{% endif %}
 
 {% endblock content %}
